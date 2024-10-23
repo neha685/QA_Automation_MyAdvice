@@ -13,13 +13,15 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import BasePackage.BaseClass;
 import ExtentReports.ExtentManager;
+import ExtentReports.pdfReports;
 
 public class ListenerCls implements ITestListener{
-	
+	pdfReports pdfReportGenerator = new pdfReports();
 	@Override
     public void onTestStart(ITestResult result) {	
         ExtentTest test = ExtentManager.getInstance().createTest(result.getMethod().getMethodName());
         ExtentManager.setTest(test);
+        test.log(Status.INFO, "Test started "+result.getMethod().getMethodName());
     }
 	
 	@Override
@@ -36,22 +38,25 @@ public class ListenerCls implements ITestListener{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        test.log(Status.INFO, "Test failed!"+result.getMethod().getMethodName());
     }
 	
 	
 	 @Override
 	    public void onTestSuccess(ITestResult result) {
 	        ExtentTest test = ExtentManager.getTest();
-	        test.log(Status.PASS, "Test passed");
+	        test.log(Status.PASS, "Test passed"+result.getMethod().getMethodName());
 	    }
 	 @Override
 	    public void onTestSkipped(ITestResult result) {
 	        ExtentTest test = ExtentManager.getTest();
-	        test.log(Status.SKIP, "Test skipped");
+	        test.log(Status.SKIP, "Test skipped"+result.getMethod().getMethodName());
 	    }
 	 
 	 @Override
 	    public void onFinish(ITestContext context) {
+		 String reportContent = "Test Report Content"; 
+	     pdfReportGenerator.generateReport(reportContent, "test-report.pdf");
 	        ExtentManager.getInstance().flush();
 	    }
     

@@ -4,10 +4,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import BasePackage.BaseClass;
+import Utility.UtilClass;
 
 
 public class LoginPage extends BaseClass{
 //WebDriver driver;
+	//UtilClass util=new UtilClass();
 	
 	@FindBy(id="email")
 	WebElement txt_username;
@@ -30,9 +32,23 @@ public class LoginPage extends BaseClass{
 	@FindBy(xpath="//h1[normalize-space()='Verification Email Sent!']")
 	WebElement info_pwReset;
 	
+	@FindBy(xpath="//a[normalize-space()='Terms of Service']")
+	WebElement terms_of_service;
+	
+	@FindBy(xpath="//h1[@class='ast-advanced-headers-title']")
+	WebElement headingtext;
+	
+	@FindBy(xpath="//a[normalize-space()='Privacy Policy']")
+	WebElement privacy_policy;
+	
+		
 	public LoginPage() 
 	{
 	    PageFactory.initElements( driver, this);
+	}
+	
+	public String loginPageTitle() {
+		return driver.getTitle();
 	}
 	
 	public String forgotPassword(String emailid) {
@@ -41,8 +57,8 @@ public class LoginPage extends BaseClass{
 		btn_pwResetLink.click();
 		String str=info_pwReset.getText();
 		return str;
-		
 	}
+	
 	public LeadManagement loginToPC(String uname, String pw) {
 		txt_username.sendKeys(uname);
 		txt_pw.sendKeys(pw);
@@ -51,8 +67,16 @@ public class LoginPage extends BaseClass{
 		return new LeadManagement();
 	}
 	
-	public String loginPageTitle() {
-		return driver.getTitle();
+	public String termsOfService() {
+		terms_of_service.click();
+		UtilClass.switchWindow(driver, headingtext, prop.getProperty("terms_of_service"));
+		return headingtext.getText();
+	}
+	
+	public String privacyPolicy() {
+		privacy_policy.click();
+		UtilClass.switchWindow(driver,headingtext,prop.getProperty("privacy_policy"));
+		return headingtext.getText();
 	}
 	
 }

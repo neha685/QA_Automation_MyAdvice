@@ -1,19 +1,25 @@
 package PageObjects;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import BasePackage.BaseClass;
+import Utility.UtilClass;
 
 public class LeadManagement extends BaseClass{
 
 	//pagefactory
 	@FindBy(xpath="//ul[@class='nav nav-second-level collapse in']//li")
 	List<WebElement> submenuList;	
+	
+	@FindBy(xpath="//a[@href='https://performance.staging.advicecentral.online/lead-management'][normalize-space()='Overview']")
+	WebElement LeadOverview;
+	
+	@FindBy(xpath="//i[@class='fas fa-caret-down']")
+	WebElement drpdwn_location;
 	
 	@FindBy(xpath="//li//a[contains(text(), 'Leads')]")
 	WebElement lead_submenu;
@@ -78,6 +84,8 @@ public class LeadManagement extends BaseClass{
 	@FindBy(xpath="//span[contains(text(),'In Progress (Global)')]")
 	WebElement status;
 	
+	
+	
 	 public LeadManagement() {
 		 PageFactory.initElements( driver, this);
 	 }
@@ -88,15 +96,18 @@ public class LeadManagement extends BaseClass{
 		return submenuList.	size();			
 	}
 	
-	public List<String> getSubMenusList() {
-		List<String> subMenus=new ArrayList<String>();
-		List<WebElement> list=submenuList;
-		for(WebElement ele:list) {
-			String str=ele.getText();
-			subMenus.add(str);
+	public boolean verificationOfSubMenusList() {
+		List<String> actList=submenuList.stream().map(WebElement::getText).map(String::trim).toList();
+		System.out.println(actList);
+		List<String> expList=List.of("Overview", "Leads", "People", "Settings");
+		if(actList.equals(expList)) {
+			return true;
+		} else {
+			return false;
 		}
-		return subMenus;
 	}
+	
+
 	
 	public boolean createNewLead(String fname, String lname, String phone, String emailid, String description) {
 		lead_submenu.click();

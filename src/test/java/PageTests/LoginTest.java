@@ -1,14 +1,13 @@
 package PageTests;
 import org.testng.annotations.Test;
-import org.testng.AssertJUnit;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 import BasePackage.BaseClass;
 import PageObjects.LoginPage;
 
 public class LoginTest extends BaseClass{
 	LoginPage ln;
+	
 	public LoginTest() {
 		super();
 	}
@@ -20,24 +19,45 @@ public void setup() {
 	ln=new LoginPage();
 }
 
-@Test(priority=1, enabled=true)
+@Test(priority=1, enabled=true, description="Verification of login page title", groups = {"smoke"})
 public void validateLoginPageTitle() {
 	String actTitle=ln.loginPageTitle();
-	AssertJUnit.assertEquals(actTitle, prop.getProperty("loginPageTitle"));
+	Assert.assertEquals(actTitle, prop.getProperty("loginPageTitle"));
+}
+
+@Test(priority=2, enabled=true, description="Verification of blank id and passowrd")
+public void validateBlankCredentials() {
+	
+}
+
+@Test(priority=3, enabled=true, description="Verification of blank id")
+public void validateBlankUsername() {
+	
 }
 
 //This test case will capture the message after sending the verification link to user email
-@Test(priority=2, enabled=false)
+@Test(priority=4, enabled=true, description="verification of forgot pw link", groups = {"smoke"})
 public void verifyForgotPwLink() {
 	String actText=ln.forgotPassword(prop.getProperty("emailid"));
-	AssertJUnit.assertEquals(prop.getProperty("PW_reset_text"), actText);
+	Assert.assertEquals(prop.getProperty("PW_reset_text"), actText);
 }
 
-@Test(priority=3, enabled=false)
+@Test(priority=5, enabled=true, description="Verification of successful login", groups = {"smoke"})
 public void validateLogin() {
 	ln.loginToPC(prop.getProperty("emailid"), prop.getProperty("password"));
-	AssertJUnit.assertEquals(driver.getTitle(), prop.getProperty("homepage_title"));
-	System.out.println("email id is "+prop.getProperty("emailid"));
-	System.out.println("pw is "+prop.getProperty("password"));
+	Assert.assertEquals(driver.getTitle(), prop.getProperty("homepage_title"));
+	}
+
+@Test(priority=6, enabled=true, description="Verification of terms of service")
+public void validateTermsOfService() {
+	String actText=ln.termsOfService();
+	Assert.assertEquals(prop.getProperty("terms_of_service"), actText);
 }
+
+@Test(priority=7, enabled=true, description="Verification of privacy policy")
+public void validatePrivacyPolicy() {
+	String actText=ln.privacyPolicy();
+	Assert.assertEquals(prop.getProperty("privacy_policy"), actText);
+}
+
 }

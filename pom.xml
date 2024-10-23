@@ -42,6 +42,12 @@
     <version>7.9.0</version>
     <scope>compile</scope>
 </dependency>
+<!-- Other dependencies -->
+    <dependency>
+        <groupId>com.itextpdf</groupId>
+        <artifactId>itextpdf</artifactId>
+        <version>5.5.13.2</version> <!-- Check for the latest version -->
+    </dependency>
 <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
 <dependency>
     <groupId>io.github.bonigarcia</groupId>
@@ -54,12 +60,7 @@
     <artifactId>extentreports</artifactId>
     <version>5.1.0</version>
 </dependency>
-  <!-- Apache HttpClient -->
-    <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>4.5.13</version>
-    </dependency>
+ 
     
   </dependencies>
 

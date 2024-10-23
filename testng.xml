@@ -6,7 +6,7 @@
 </listeners>
   <test thread-count="4" name="Test">
     <classes>
-      <class name="TestData.LoginTest"/>
+      <class name="PageTests.LoginTest"/>
      
     </classes>
   </test> <!-- Test -->

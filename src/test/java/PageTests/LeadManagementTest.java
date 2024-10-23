@@ -1,5 +1,4 @@
 package PageTests;
-import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -22,30 +21,30 @@ public class LeadManagementTest extends BaseClass{
 		leadPage=ln.loginToPC(prop.getProperty("emailid"),prop.getProperty("password"));
 		}
 	
-	@Test(priority=1, enabled=false)
+	@Test(priority=1, enabled=true, description="verification of lead management dropdown", groups= {"Regression"})
 	public void verifyLeadManagementSubMenus() {
-		List<String> actList=leadPage.getSubMenusList();
-		System.out.println(actList +" is the act list");
-		List<String> explist=getList(prop.getProperty("lead_submenus"));
-		System.out.println("Exp list is "+explist);
-		Assert.assertEquals(actList, explist);
+		Assert.assertTrue(leadPage.verificationOfSubMenusList());
 	}
 	
-	@Test(priority = 2, enabled=false)
+	public void verifyLocationInOverview() {
+		
+	}
+	@Test(priority = 2, enabled=true, description="verification of create new lead", groups= {"Regression"})
 	public void verifyCreateLeadFeature() {
 		boolean result=leadPage.createNewLead(prop.getProperty("first_name"), prop.getProperty("last_name"), prop.getProperty("phone"),
 				prop.getProperty("email"), prop.getProperty("description"));
+		//asserting the name of lead as of now, will include toast msg once its flash time is increased
 		Assert.assertTrue(result);	
 	}
 	
-	@Test(priority=3, enabled=true)
+	@Test(priority=3, enabled=true, description="verification of add note feature", groups= {"smoke"})
 	public void verifyAddNoteFeature() {
 		Assert.assertTrue(leadPage.addNoteFeature());
 	}
 	
-	
-	
-	@Test(priority=4, enabled=false)
+		
+	//to be executed at the last so that large data wont be created
+	@Test(priority=4, enabled=true, description="verification of lead deletion")
 	public void deleteLead() {
 		Assert.assertTrue(leadPage.verifyLeadDeletion());
 	}

@@ -16,12 +16,15 @@ import ExtentReports.ExtentManager;
 import ExtentReports.pdfReports;
 
 public class ListenerCls implements ITestListener{
-	pdfReports pdfReportGenerator = new pdfReports();
+	pdfReports pdfReportGenerator = new pdfReports("test-report.pdf");
 	@Override
-    public void onTestStart(ITestResult result) {	
+    public void onTestStart(ITestResult result) {
+		//extent report configuration
         ExtentTest test = ExtentManager.getInstance().createTest(result.getMethod().getMethodName());
         ExtentManager.setTest(test);
         test.log(Status.INFO, "Test started "+result.getMethod().getMethodName());
+        
+        pdfReportGenerator.logTestStep("The Test scenario "+result.getName(),"Start", "Started");
     }
 	
 	@Override
@@ -39,13 +42,14 @@ public class ListenerCls implements ITestListener{
             e.printStackTrace();
         }
         test.log(Status.INFO, "Test failed!"+result.getMethod().getMethodName());
+        pdfReportGenerator.logTestStep("The Test scenario "+result.getName(),"Fail" , "Test failed due to "+result.getThrowable());
     }
-	
 	
 	 @Override
 	    public void onTestSuccess(ITestResult result) {
 	        ExtentTest test = ExtentManager.getTest();
 	        test.log(Status.PASS, "Test passed"+result.getMethod().getMethodName());
+	        pdfReportGenerator.logTestStep("The Test scenario "+result.getName(),"Pass" , "executed successfully");
 	    }
 	 @Override
 	    public void onTestSkipped(ITestResult result) {
@@ -56,7 +60,7 @@ public class ListenerCls implements ITestListener{
 	 @Override
 	    public void onFinish(ITestContext context) {
 		 String reportContent = "Test Report Content"; 
-	     pdfReportGenerator.generateReport(reportContent, "test-report.pdf");
+	     pdfReportGenerator.closeReport();
 	        ExtentManager.getInstance().flush();
 	    }
     

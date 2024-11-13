@@ -61,6 +61,7 @@ public class BaseClass {
 		driver.manage().window().maximize();
 	}
 	
+	//To retrieve the list from properties file
 	public static List<String> getList(String key) {
         prop=new Properties();
         List<String> itemsList = null;

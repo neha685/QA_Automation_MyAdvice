@@ -6,15 +6,15 @@
   </listeners>
   <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="PageTests.LoginTest">
+      <class name="PageTests.LeadManagementTest">
         <methods>
-          <include name="validateLoginPageTitle"/>
-          <include name="validatePrivacyPolicy"/>
-          <include name="validateTermsOfService"/>
-          <include name="validateLogin"/>
+          <include name="verifyAddNoteFeature"/>
+          <include name="verifySearchField"/>
+          <include name="deleteLead"/>
+          <include name="verifyCreateLeadFeature"/>
           <include name="setup"/>
         </methods>
-      </class> <!-- PageTests.LoginTest -->
+      </class> <!-- PageTests.LeadManagementTest -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

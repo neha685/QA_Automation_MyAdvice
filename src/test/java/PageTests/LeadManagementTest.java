@@ -26,9 +26,6 @@ public class LeadManagementTest extends BaseClass{
 		Assert.assertTrue(leadPage.verificationOfSubMenusList());
 	}
 	
-	public void verifyLocationInOverview() {
-		
-	}
 	@Test(priority = 2, enabled=true, description="verification of create new lead", groups= {"Regression"})
 	public void verifyCreateLeadFeature() {
 		boolean result=leadPage.createNewLead(prop.getProperty("first_name"), prop.getProperty("last_name"), prop.getProperty("phone"),
@@ -37,14 +34,18 @@ public class LeadManagementTest extends BaseClass{
 		Assert.assertTrue(result);	
 	}
 	
-	@Test(priority=3, enabled=true, description="verification of add note feature", groups= {"smoke"})
+	@Test(priority=3, enabled=true, description="Verification of search field")
+	public void verifySearchField() {
+		Assert.assertTrue(leadPage.verifySearchField());
+	}
+	
+	@Test(priority=4, enabled=false, description="verification of add note feature", groups= {"smoke"})
 	public void verifyAddNoteFeature() {
 		Assert.assertTrue(leadPage.addNoteFeature());
 	}
 	
-		
 	//to be executed at the last so that large data wont be created
-	@Test(priority=4, enabled=true, description="verification of lead deletion")
+	@Test(priority=5, enabled=false, description="verification of lead deletion")
 	public void deleteLead() {
 		Assert.assertTrue(leadPage.verifyLeadDeletion());
 	}

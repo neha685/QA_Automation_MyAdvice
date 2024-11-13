@@ -2,10 +2,17 @@ package PageObjects;
 
 import java.time.Duration;
 import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.w3c.dom.html.HTMLTableCellElement;
+
 import BasePackage.BaseClass;
 import Utility.UtilClass;
 
@@ -18,8 +25,8 @@ public class LeadManagement extends BaseClass{
 	@FindBy(xpath="//a[@href='https://performance.staging.advicecentral.online/lead-management'][normalize-space()='Overview']")
 	WebElement LeadOverview;
 	
-	@FindBy(xpath="//i[@class='fas fa-caret-down']")
-	WebElement drpdwn_location;
+	@FindBy(xpath="//*[@class='dropdown-content']//a")
+	List<WebElement> drpdwn_location;
 	
 	@FindBy(xpath="//li//a[contains(text(), 'Leads')]")
 	WebElement lead_submenu;
@@ -51,7 +58,7 @@ public class LeadManagement extends BaseClass{
 	@FindBy(xpath="//div[@class='toast-message']") 
 	WebElement alert_toastmsg;
 	
-	@FindBy(xpath="//div[@class='editable-text-label']//span[contains(text(),'Lead automation')]")
+	@FindBy(xpath="//table//tr[1]//td[2]") 
 	WebElement lead_name;
 	
 	@FindBy(xpath="//tbody/tr[1]/td[2]/a[1]")
@@ -84,7 +91,11 @@ public class LeadManagement extends BaseClass{
 	@FindBy(xpath="//span[contains(text(),'In Progress (Global)')]")
 	WebElement status;
 	
+	@FindBy(xpath="//input[@placeholder='Search by name...']")
+	WebElement txt_searchField;
 	
+	@FindBy(xpath="//button[normalize-space()='Search']")
+	WebElement btn_search;
 	
 	 public LeadManagement() {
 		 PageFactory.initElements( driver, this);
@@ -163,5 +174,17 @@ public class LeadManagement extends BaseClass{
 		} else {
 			return false;
 		}
+	}
+	
+	public boolean verifySearchField() {
+		lead_submenu.click();
+		txt_searchField.sendKeys("lead");
+		btn_search.click();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+		automation_lead.click();
+		if(lead_name.isDisplayed()) {
+			return true;
+		} else
+			return false;
 	}
 }

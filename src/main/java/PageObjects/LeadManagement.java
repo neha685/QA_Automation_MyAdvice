@@ -2,6 +2,7 @@ package PageObjects;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -97,6 +98,24 @@ public class LeadManagement extends BaseClass{
 	@FindBy(xpath="//button[normalize-space()='Search']")
 	WebElement btn_search;
 	
+	@FindBy(xpath="//i[@class='fas fa-filter']")
+	WebElement btn_advancedFilter;
+	
+	@FindBy(xpath="//h4[@class='d-inline-block text-light mb-0 float-left']")
+	WebElement txt_advancedFilterTitle;
+	
+	@FindBy(xpath="//button[@class='btn btn-light btn-xs ml-3']")
+	WebElement btn_email;
+	
+	@FindBy(xpath="//input[@id='add_email']")
+	WebElement txt_email;
+	
+	@FindBy(xpath="//div[@class='w-100']//div[1]//button[2]")
+	WebElement btn_ok;
+	
+	@FindBy(xpath="//span[@class='email-address sort-handle']")
+	WebElement txt_edited_emailid;
+	
 	 public LeadManagement() {
 		 PageFactory.initElements( driver, this);
 	 }
@@ -186,5 +205,31 @@ public class LeadManagement extends BaseClass{
 			return true;
 		} else
 			return false;
+	}
+	public boolean verifyAdvancedFilter() {
+		lead_submenu.click();
+		btn_advancedFilter.click();
+		if(txt_advancedFilterTitle.isDisplayed()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public boolean verifyEditLeadFeature(String email) {
+		lead_submenu.click();
+		try {
+				automation_lead.click();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		btn_email.click();
+		txt_email.sendKeys(email);
+		btn_ok.click();
+		String actText=txt_edited_emailid.getText();
+		if(actText.equalsIgnoreCase(email)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

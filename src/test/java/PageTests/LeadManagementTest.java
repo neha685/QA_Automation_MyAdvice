@@ -21,7 +21,7 @@ public class LeadManagementTest extends BaseClass{
 		leadPage=ln.loginToPC(prop.getProperty("emailid"),prop.getProperty("password"));
 		}
 	
-	@Test(priority=1, enabled=false, description="verification of lead management dropdown", groups= {"Regression"})
+	@Test(priority=1, enabled=true, description="verification of lead management dropdown", groups= {"Regression"})
 	public void verifyLeadManagementSubMenus() {
 		Assert.assertTrue(leadPage.verificationOfSubMenusList());
 	}
@@ -34,7 +34,7 @@ public class LeadManagementTest extends BaseClass{
 		Assert.assertTrue(result);	
 	}
 	
-	@Test(priority=3, enabled=false, description="Verification of search field")
+	@Test(priority=3, enabled=true, description="Verification of search field")
 	public void verifySearchField() {
 		Assert.assertTrue(leadPage.verifySearchField());
 	}
@@ -43,20 +43,29 @@ public class LeadManagementTest extends BaseClass{
 	public void verifyAdvancedFilter() {
 		Assert.assertTrue(leadPage.verifyAdvancedFilter());
 	}
-	@Test(priority=4, enabled=false, description="verification of add note feature", groups= {"smoke"})
+	@Test(priority=5, enabled=true, description="verification of add note feature", groups= {"smoke"})
 	public void verifyAddNoteFeature() {
 		Assert.assertTrue(leadPage.addNoteFeature());
 	}
 	
-	@Test(priority=5, enabled=true, description="verification of edit lead")
+	@Test(priority=6, enabled=true, description="verification of edit lead")
 	public void verifyEditLeadFeature() {
 		Assert.assertTrue(leadPage.verifyEditLeadFeature(prop.getProperty("neha_edit@gmail.com")));
 	}
 	
 	//to be executed at the last so that large data wont be created
-	@Test(priority=6, enabled=false, description="verification of lead deletion")
+	@Test(priority=7, enabled=true, description="verification of lead deletion")
 	public void deleteLead() {
 		Assert.assertTrue(leadPage.verifyLeadDeletion());
 	}
 	
+	@Test(priority=8, enabled=true, description="verification of people submenu")
+	public void verifyPeopleSubmenu() {
+		Assert.assertTrue(leadPage.verificationOfPeopleSubmenu(prop.getProperty("people_url")));
+	} 
+	
+	@Test(priority=9, enabled=true, description="verification of view CTA")
+	public void verifyViewCTA() {
+		Assert.assertTrue(leadPage.verifyViewCTAinPeople(prop.getProperty("people_details")));
+	}
 }

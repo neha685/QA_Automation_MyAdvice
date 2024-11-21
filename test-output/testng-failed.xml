@@ -8,11 +8,16 @@
     <classes>
       <class name="PageTests.LeadManagementTest">
         <methods>
+          <include name="verifyLeadManagementSubMenus"/>
           <include name="verifyAddNoteFeature"/>
+          <include name="verifyAdvancedFilter"/>
+          <include name="verifyPeopleSubmenu"/>
           <include name="verifySearchField"/>
+          <include name="verifyViewCTA"/>
           <include name="deleteLead"/>
           <include name="verifyCreateLeadFeature"/>
           <include name="setup"/>
+          <include name="verifyEditLeadFeature"/>
         </methods>
       </class> <!-- PageTests.LeadManagementTest -->
     </classes>

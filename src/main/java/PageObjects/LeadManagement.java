@@ -2,20 +2,14 @@ package PageObjects;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Properties;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.w3c.dom.html.HTMLTableCellElement;
-
 import BasePackage.BaseClass;
 import Utility.UtilClass;
+import lombok.experimental.UtilityClass;
 
 public class LeadManagement extends BaseClass{
 
@@ -115,6 +109,18 @@ public class LeadManagement extends BaseClass{
 	
 	@FindBy(xpath="//span[@class='email-address sort-handle']")
 	WebElement txt_edited_emailid;
+	
+	@FindBy(xpath="//a[normalize-space()='People']")
+	WebElement people_submenu;
+	
+	@FindBy(xpath="//table//tr[1]//td[2]")
+	WebElement peopleName;
+	
+	@FindBy(xpath="//a[@href='/lead-management/leads/317']")
+	WebElement btn_viewCTA;
+	
+	@FindBy(xpath="//div[@class='editable-text-input']//input[@type='text']")
+	WebElement leadNameInNewTab;
 	
 	 public LeadManagement() {
 		 PageFactory.initElements( driver, this);
@@ -232,4 +238,26 @@ public class LeadManagement extends BaseClass{
 			return false;
 		}
 	}
+	public boolean verificationOfPeopleSubmenu(String actUrl) {
+		people_submenu.click();
+		String currentUrl=driver.getCurrentUrl();
+		System.out.println(currentUrl);
+		if(actUrl.equalsIgnoreCase(currentUrl)) {
+			return true;
+		} else
+		return false;	
+	}
+	
+	public boolean verifyViewCTAinPeople(String exp) {
+		people_submenu.click();
+		peopleName.click();
+		btn_viewCTA.click();
+		UtilClass.switchWindow(driver, leadNameInNewTab, exp);
+		if(lead_name.isDisplayed()) {
+			return true;
+			} else {
+			return false;
+			}
+	}
+	
 }
